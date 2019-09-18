@@ -144,46 +144,54 @@ function addlist(id,title ) {
                   
                   <tbody className="tableData">
                     
-                  <tr>
-
+                
+            <th>
+              
                   {this.state.nameList.map((item)=>{
                      return(
-                       <th key={item.id} className="tName"> {item.title} </th>
+                       
+                    <tr key={item.id} 
+                    className="tName"
+                    > {item.title} </tr> 
                       )
                   })
                   
                  }
+                
+            </th> 
+           
 
+            
                  
-
+            <th>
                    {this.state.adressList.map((item)=>{
                     return(
-                      <th 
+                      <tr 
                      key={item.id}
                      className="tName"
                           >{item.title} 
-                      </th>
+                      </tr>
                      )
                  })
                  }
+            </th>
                     
-
-                    
+            <th>
                     {this.state.dateList.map((item)=>{
                    return(
-                      <th 
+                      <tr 
                      key={item.id}
                      className="tName"
                           >{item.title} 
-                      </th>
+                      </tr>
                       )
                   })
                    } 
 
-                          
+           </th>              
                             
                             
-                  </tr>
+                  
                   
                   </tbody>
                   
