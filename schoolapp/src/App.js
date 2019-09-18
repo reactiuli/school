@@ -2,27 +2,26 @@ import React, {Component} from 'react';
 import './App.css';
 
 
-// function addlist(addName, addAdress, addDate ) {
-//   return {
-//     addName,
-//     addAdress,
-//     addDate
-//   }
-// }
+function addlist(id,title ) {
+  return {
+    id,
+    title
+  }
+}
   class App extends Component {
 
     
 
     state ={
+      nameList: [],
+      adressList:[],
+      dateList:[],
+
+
       nName: '',
       nAdress: '',
-      nDate: '',
+      nDate: ''
 
-      addName:'',
-      addAdress:'',
-      addDate:''
-      
-    
     }
 
     onChangeName=(e)=>{
@@ -44,63 +43,93 @@ import './App.css';
 }
 
     addClick=()=>{
+      let newNameList = addlist (
+        this.state.nameList.length+1,
+        this.state.nName
+        
+      )
+
+      let newAdressList = addlist (
+        this.state.adressList.length+1,
+        this.state.nAdress
+        
+      )
+
+      let newDateList = addlist (
+        this.state.dateList.length+1,
+        this.state.nDate
+        
+      )
+      
       this.setState({
-        addName: this.state.nName,
+        
+        nameList: [...this.state.nameList, newNameList],
+        adressList: [...this.state.adressList, newAdressList],
+        dateList: [...this.state.dateList, newDateList],
+
+       
+        
         nName: '',
-        addAdress: this.state.nAdress,
         nAdress: '',
-        addDate: this.state.nDate,
-        nDate: '',
+        nDate: ''
+        
       })
 
+      console.log(this.state.nName)
+      
+      console.log(newNameList.title);
+      console.log(this.state.nameList);
+      
+      
+      
     }
-
+    
+   
 
     render(){
       return (
 
         <div className="App">
-          <header>
+          
+          
 
-                <div className="name">
-                    <input 
-                      type="text" 
+                <input 
+                      type="text"
                       placeholder="Name"
                       value={this.state.nName}
                       onChange={(e)=>
-                        this.onChangeName(e)}
-                    />
+                              this.onChangeName(e)}
+                              
+                />
+
+                <input 
+                      type="text" 
+                      placeholder="Adress"
+                      value={this.state.nAdress}
+                      onChange={(e)=>
+                            this.onChangeAdress(e)}
+                      />
+
+                <input 
+                      type="text" 
+                      placeholder="Date"
+                      value={this.state.nDate}
+                      onChange={(e)=>
+                              this.onChangeDate(e)}
+                        />
+
+                  
+                  <button 
+                    onClick={this.addClick}
+                  >
+                      ADD
+                      </button>
+
+          
+
                 
-                </div>
+
                 
-
-                <div className="adress">
-                  <input 
-                  type="text" 
-                  placeholder="Adress"
-                  value={this.state.nAdress}
-                  onChange={(e)=>
-                        this.onChangeAdress(e)}
-                  />
-                </div>
-
-                <div className="date">
-                  <input 
-                  type="text" 
-                  placeholder="Date"
-                  value={this.state.nDate}
-                  onChange={(e)=>
-                        this.onChangeDate(e)}
-                  />
-                </div>
-
-                <button onClick={this.addClick}
-                >
-                ADD
-                </button>
-
-          </header>
-
          <table>
                   <thead>
                           <tr>
@@ -110,13 +139,55 @@ import './App.css';
                           </tr>
                   </thead>
                   
+
+
+                  
                   <tbody className="tableData">
+                    
                   <tr>
-                            <th className="tName">{this.state.addName}</th>
-                            <th className="tAdress">{this.state.addAdress}</th>
-                            <th className="tDate">{this.state.addDate}</th>
+
+                  {this.state.nameList.map((item)=>{
+                     return(
+                       <th key={item.id} className="tName"> {item.title} </th>
+                      )
+                  })
+                  
+                 }
+
+                 
+
+                   {this.state.adressList.map((item)=>{
+                    return(
+                      <th 
+                     key={item.id}
+                     className="tName"
+                          >{item.title} 
+                      </th>
+                     )
+                 })
+                 }
+                    
+
+                    
+                    {this.state.dateList.map((item)=>{
+                   return(
+                      <th 
+                     key={item.id}
+                     className="tName"
+                          >{item.title} 
+                      </th>
+                      )
+                  })
+                   } 
+
+                          
+                            
+                            
                   </tr>
+                  
                   </tbody>
+                  
+                  
                   
          </table>
      
