@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component,Fragment} from 'react';
 import './App.css';
 
 
@@ -8,6 +8,14 @@ function addlist(id,title ) {
     title
   }
 }
+
+function objArr(nameList, adressList,dateList) {
+  return { 
+  nameList,
+  adressList,
+  dateList
+ }
+}
   class App extends Component {
 
     
@@ -16,8 +24,8 @@ function addlist(id,title ) {
       nameList: [],
       adressList:[],
       dateList:[],
-
-
+      newArr:[],
+      
       nName: '',
       nAdress: '',
       nDate: ''
@@ -61,13 +69,11 @@ function addlist(id,title ) {
         
       )
       
+     let newItem= objArr(newNameList,newAdressList,newDateList)
+
       this.setState({
         
-        nameList: [...this.state.nameList, newNameList],
-        adressList: [...this.state.adressList, newAdressList],
-        dateList: [...this.state.dateList, newDateList],
-
-       
+        newArr: [...this.state.newArr, newItem],
         
         nName: '',
         nAdress: '',
@@ -75,12 +81,6 @@ function addlist(id,title ) {
         
       })
 
-      console.log(this.state.nName)
-      
-      console.log(newNameList.title);
-      console.log(this.state.nameList);
-      
-      
       
     }
     
@@ -122,13 +122,12 @@ function addlist(id,title ) {
                   <button 
                     onClick={this.addClick}
                   >
-                      ADD
-                      </button>
+                   ADD
+                  </button>
 
           
 
-                
-
+        
                 
          <table>
                   <thead>
@@ -142,58 +141,40 @@ function addlist(id,title ) {
 
 
                   
-                  <tbody className="tableData">
+      <tbody className="tableData">
                     
-                
-            <th>
-              
-                  {this.state.nameList.map((item)=>{
-                     return(
-                       
-                    <tr key={item.id} 
-                    className="tName"
-                    > {item.title} </tr> 
-                      )
-                  })
+                    {this.state.newArr.map((item)=>{
+                      return(
+                          <Fragment>
+                          <tr>       
+                                  <th 
+                                      key={item.id} 
+                                      className="tName"
+                                      > {item.nameList.title} 
+                                  </th> 
                   
-                 }
-                
-            </th> 
-           
 
-            
-                 
-            <th>
-                   {this.state.adressList.map((item)=>{
-                    return(
-                      <tr 
-                     key={item.id}
-                     className="tName"
-                          >{item.title} 
-                      </tr>
-                     )
-                 })
-                 }
-            </th>
-                    
-            <th>
-                    {this.state.dateList.map((item)=>{
-                   return(
-                      <tr 
-                     key={item.id}
-                     className="tName"
-                          >{item.title} 
-                      </tr>
-                      )
-                  })
-                   } 
+                                  <th 
+                                      key={item.id} 
+                                      className="tAdress"
+                                      > {item.adressList.title}
+                                  </th> 
+                                  
+                                  <th 
+                                      key={item.id} 
+                                      className="tDate"
+                                      > {item.dateList.title} 
+                                  </th> 
 
-           </th>              
+                          </tr>  
+                              
+                          </Fragment>
+
+                                )
+                            })
                             
-                            
-                  
-                  
-                  </tbody>
+                          }
+    </tbody>
                   
                   
                   
