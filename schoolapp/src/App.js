@@ -1,5 +1,6 @@
 import React, {Component,Fragment} from 'react';
 import './App.css';
+import DialogBox from './components/DialogBox';
 
 
 function addlist(id,title ) {
@@ -18,9 +19,7 @@ function objArr(nameList, adressList,dateList) {
 }
   class App extends Component {
 
-    
-
-    state ={
+   state ={
       nameList: [],
       adressList:[],
       dateList:[],
@@ -28,7 +27,10 @@ function objArr(nameList, adressList,dateList) {
       
       nName: '',
       nAdress: '',
-      nDate: ''
+      nDate: '',
+
+      isOpen:false
+      
 
     }
 
@@ -73,6 +75,7 @@ function objArr(nameList, adressList,dateList) {
 
       this.setState({
         
+        
         newArr: [...this.state.newArr, newItem],
         
         nName: '',
@@ -91,11 +94,21 @@ function objArr(nameList, adressList,dateList) {
 
         <div className="App">
           
-          
+
+          <DialogBox 
+          isOpen={this.state.isOpen}
+          onClose={(e)=> this.setState({
+            isOpen:false
+          })}
+          >
+           სკოლის მოსწავლეების სია
+           
+          </DialogBox>
+
 
                 <input 
                       type="text"
-                      placeholder="Name"
+                      placeholder="School Name"
                       value={this.state.nName}
                       onChange={(e)=>
                               this.onChangeName(e)}
@@ -104,7 +117,7 @@ function objArr(nameList, adressList,dateList) {
 
                 <input 
                       type="text" 
-                      placeholder="Adress"
+                      placeholder="School Adress"
                       value={this.state.nAdress}
                       onChange={(e)=>
                             this.onChangeAdress(e)}
@@ -112,7 +125,7 @@ function objArr(nameList, adressList,dateList) {
 
                 <input 
                       type="text" 
-                      placeholder="Date"
+                      placeholder="School Date"
                       value={this.state.nDate}
                       onChange={(e)=>
                               this.onChangeDate(e)}
@@ -130,11 +143,11 @@ function objArr(nameList, adressList,dateList) {
         
                 
          <table>
-                  <thead>
-                          <tr>
-                            <th>Name</th>
-                            <th>Adress</th>
-                            <th>Date</th>
+                  <thead >
+                          <tr className="mainList">
+                            <th>School Name</th>
+                            <th>School Adress</th>
+                            <th>School Date</th>
                           </tr>
                   </thead>
                   
@@ -150,10 +163,16 @@ function objArr(nameList, adressList,dateList) {
                                   <th 
                                       key={item.id} 
                                       className="tName"
+                                      onDoubleClick={(e)=>{
+                                        this.setState({
+                                          isOpen: true
+                                        
+                                        
+                                        })
+                                      }}
                                       > {item.nameList.title} 
                                   </th> 
-                  
-
+               
                                   <th 
                                       key={item.id} 
                                       className="tAdress"
